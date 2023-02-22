@@ -1,0 +1,114 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+
+    <script>
+        
+        function getCookie(name){
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if(parts.length == 2) return parts.pop().split(';').shift();
+        }
+
+
+        function edit_post(id) {
+                console.log(id);
+                const textareaValue = document.querySelector("#textarea_").value;
+                const content = document.getElementById(`content_${id}`);
+                const modal = document.getElementById(`edit_post_${id}`);
+                console.log(textareaValue)
+
+                // Send edited post to the backend
+                fetch(`/edit/${id}/`, {
+                    method: 'POST',
+                    headers: {"Content-type": "application/json", "X-CSRFToken": getCookie("csrftoken")},
+                    body: JSON.stringify ({
+                        content: textareaValue
+                    })
+                })
+                .then(response => response.json())
+                .then(result => {
+                    
+                    textareaValue.innerHTML = result.data
+
+                })
+
+            }
+
+
+
+
+    </script>
+    {% if user.is_authenticated %}
+        <form action="{% url 'index' %}" method="post">
+            {% csrf_token %}
+            <textarea class ="form-control" name="content" placeholder="New POST" rows="5" cols="15"></textarea>
+            <br>
+            <input class="btn btn-primary" type="submit" value="Post">
+        </form>
+
+        <br>
+
+        {% for post in allposts %}
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                <h5 class="card-title"><a href="{% url 'profile' post.author %}">{{ post.author }}</a></h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ post.date }}</h6>
+                <p class="card-text" id="content_{{ post.id }}" >{{ post.content }}.</p>
+                <a href="#" class="card-link">Like</a>
+                    
+                    
+                {% if user.is_authenticated %}
+                    {% if request.user.id == post.author.id %} 
+                        
+                                                <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_edit_post_{{ post.id }}">
+                            Edit
+                        </button>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="modal_edit_post_{{ post.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal_edit_post_{{ post.id }}_label" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <textarea id="textarea_" row="5" name="content" class="form-control">{{ post.content }}</textarea>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick="edit_post('{{ post.id }}')" data-bs-dismiss="modal">Edit</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                    {% endif %}
+                {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+        
+        <br>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              
+                {% if allposts.has_previous %}
+                    <li class="page-item">&laquo; first<a class="page-link" href="?page=1">
+                    <li class="page-item"><a class="page-link" href="?page={{ allposts.previous_page_number }}">Previous</a></li>
+                    
+                {% endif %}
+                
+                <li class="page-item">Page {{ allposts.number }} of {{ allposts.paginator.num_pages }}.<a class="page-link" href="#">Next</a></li>
+
+                {% if allposts.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ allposts.next_page_number }}">Next</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ allposts.paginator.num_pages }}">last &raquo</a></li>
+                {% endif %}
+            </ul>
+          </nav>
+    {% endif %}
+{% endblock %}

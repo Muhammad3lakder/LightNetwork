@@ -1,0 +1,14 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+        <form action="{% url 'index' %}" method="post">
+            {% csrf_token %}
+            <textarea class ="form-control" name="edit" placeholder="EDIT POST" rows="5" cols="15"></textarea>
+            <br>
+            <input class="btn btn-primary" type="submit" value="Post">
+        </form>
+
+        <br>
+    {% endif %} 
+{% endblock %}
