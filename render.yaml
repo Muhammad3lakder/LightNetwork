@@ -1,7 +1,8 @@
 databases:
-  - name: LightNetwork
-    databaseName: LightNetwork
-    user: LightNetwork
+  - name: dpg-cfr0vepmbjsgn6t80a20-a
+    databaseName: lightnetwork
+    user: lightnetwork_user
+
 
 services:
   - type: web
