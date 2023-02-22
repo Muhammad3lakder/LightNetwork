@@ -28,7 +28,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY', default='13kl@xtukpwe&xj2xoysxe9_6=tf@f8ewxer5n&ifnd46+6$%8')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = []
 
@@ -85,7 +85,12 @@ WSGI_APPLICATION = 'project4.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config
+    'default': dj_database_url.config(
+
+        # Feel free to alter this value to suit your needs.
+        default='postgres://lightnetwork_xoa4_user:FbyJfC73ntjaLPr7o9sqRI9FK7TkZso5@dpg-cfr5b7en6mpirvuu67jg-a/lightnetwork_xoa4',
+        conn_max_age=600
+    )
         #{
         #'ENGINE': 'django.db.backends.sqlite3',
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
