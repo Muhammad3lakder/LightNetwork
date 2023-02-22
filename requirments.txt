@@ -3,3 +3,4 @@ django==4.1
 dj-database-url
 psycopg2-binary
 whitenoise[brotli]
+gunicorn
