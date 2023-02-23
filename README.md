@@ -1,8 +1,8 @@
 # LightNetwork
 > LightNetwork
-[![Screenshot-from-2023-02-23-13-16-24.png](https://i.postimg.cc/3NXz0Jg8/Screenshot-from-2023-02-23-13-16-24.png)](https://postimg.cc/kR5TkC1z)
 
-#### Video Demo:  <URL HERE>
+#### Video Demo:  [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/IBxm5wASHvA/0.jpg)](https://youtu.be/IBxm5wASHvA)
+
 
 
 >[Try it](https://lightnetwork.onrender.com)
