@@ -44,7 +44,7 @@
             {% csrf_token %}
             <textarea class ="form-control" name="content" placeholder="New POST" rows="5" cols="15"></textarea>
             <br>
-            <input class="btn btn-primary" type="submit" value="Post">
+            <input class="btn btn-primary" type="submit" value="نشر">
         </form>
 
         <br>
@@ -55,7 +55,7 @@
                 <h5 class="card-title"><a href="{% url 'profile' post.author %}">{{ post.author }}</a></h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{ post.date }}</h6>
                 <p class="card-text" id="content_{{ post.id }}" >{{ post.content }}.</p>
-                <a href="#" class="card-link">Like</a>
+                <a href="#" class="card-link">اعجاب</a>
                     
                     
                 {% if user.is_authenticated %}
@@ -78,8 +78,8 @@
                                     <textarea id="textarea_" row="5" name="content" class="form-control">{{ post.content }}</textarea>
                                 </div>
                                 <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" onclick="edit_post('{{ post.id }}')" data-bs-dismiss="modal">Edit</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">اغلاق</button>
+                                <button type="button" class="btn btn-primary" onclick="edit_post('{{ post.id }}')" data-bs-dismiss="modal">عدل</button>
                                 </div>
                             </div>
                             </div>
