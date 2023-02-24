@@ -9,8 +9,6 @@
 
 **`https://lightnetwork.onrender.com` Try it**
 
->[Try it on android](https://github.com/Muhammadelakder/CommunityApP/raw/main/deliverybycommunity.apk)
-
 
 #### Description:
 
@@ -21,8 +19,13 @@ the building blocks.
 
 What each of the files contains and does?
 
-So, since I we used Django framwork most of the back-end files contain django libraries ,and for for the frontend bootstrap libraries with some HTML etc...
+First, network/urls.py, where the URL configuration for this app is defined.
 
+network/views.py to see the views that are associated with each of these routes.
+
+Notice that several parts of the template are wrapped in a check for if user.is_authenticated, so that different content can be rendered depending on whether the user is signed in or not.
+
+network/models.py. I started with a User model that represents each user of the application. Because it inherits from AbstractUser, it will already have fields for a username, email, password, etc.
 
 certain design choices:
 
@@ -53,6 +56,6 @@ How to run your application?
 
 
 # credits to:
-    (https://egen.solutions/articles/thinking-of-building-a-contact-tracing-application-what-to-do-instead/).
+    (cs50).
 
     
